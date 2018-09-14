@@ -25,9 +25,7 @@
 
   <style>
 
-    /*
-      misc styles, nothing to do with CSS variables
-    */
+    /* CSS Variables are usually set in the :root pseudo-class. In HTML, root is represented by the <html> elem. */
     :root {
       --blur : 10px;
       --spacing : 10px;
@@ -40,7 +38,7 @@
     img {
       filter : blur(var(--blur));
       padding : var(--spacing);
-      background : var(--color);
+      background-color : var(--base);
     }
 
     body {

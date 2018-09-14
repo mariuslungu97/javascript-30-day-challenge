@@ -7,7 +7,7 @@
 </head>
 <body>
 
-
+  <!--A div containing all the keys. Each key has a data-key property which is used as a link between the button and the audio sound.-->
   <div class="keys">
     <div data-key="65" class="key">
       <kbd>A</kbd>
@@ -61,6 +61,7 @@
   const keySelector = document.querySelector('.keys');
   function startAnim(target) {
     target.classList.add('playing');
+    //remove the animating class as soon as the transform transition is ended.
     target.addEventListener('transitionend', function(e) {
       if(e.propertyName === 'transform') target.classList.remove('playing');
     });
@@ -77,13 +78,14 @@
     }
   });
   keySelector.addEventListener('click', event => {
-    // Grab the closest target element to the DOM elem that has a class of 'key'
+    // Grab the closest target element to the DOM elem that has a class of 'key', using event delegation.
     const  target = event.target.closest('.key');
     if(target) {
       const  key = target.dataset.key;
-
+      //grab the audio element, depending on the key found
       const audioElem = document.querySelector(`audio[data-key="${key}"]`);
       if(audioElem) {
+        //if there is any audioElem found, play the sound and start the animation.
         audioElem.currentTime = 0;
         audioElem.play();
         startAnim(target);
