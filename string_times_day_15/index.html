@@ -184,28 +184,28 @@
 <script>
 
 const video = document.querySelector('.videos');
-const videoItems = video.querySelectorAll('li');
-const dataTimes = [];
+const videoItems = [...video.querySelectorAll('li')];
 
 function convertToSeconds(time) {
-  const timeArr = time.split(':');
-  const minutes = parseInt(timeArr[0]);
-  const seconds = parseInt(timeArr[1]);
-
+  const [minutes, seconds] = (time.split(':').map(parseFloat));
+  
   const totalSec = minutes * 60 + seconds;
   return totalSec;
-  // const totalSeconds = minutes * 60 + seconds;
-  // return totalSeconds;
+  
 }
 
-videoItems.forEach(el => dataTimes.push(convertToSeconds(el.dataset.time)));
+const dataTimes = videoItems.map(el => convertToSeconds(el.dataset.time));
 
-let totalSec = dataTimes.reduce((accumulator,current) => {
-  accumulator += current;
-},0);
+let totalSec = dataTimes.reduce((accumulator, current) => accumulator + current,0);
 
+let hours = 0, minutes = 0;
+hours = totalSec / 3600 > 1 ? totalSec / 3600 : 0;
+totalSec = totalSec % 3600;
 
+minutes = totalSec / 60 > 1 ? totalSec / 60 : 0;
+totalSec = totalSec % 60;
 
+console.log(`Total duration: ${Math.floor(hours)} hours, ${Math.floor(minutes)} minutes, ${Math.floor(totalSec)} seconds`);
 </script>
 </body>
 </html>
